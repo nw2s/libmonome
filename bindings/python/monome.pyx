@@ -73,7 +73,9 @@ cdef extern from "monome.h":
 	# more const hackery
 	ctypedef char * const_char_p "const char *"
 	const_char_p monome_get_serial(monome_t *monome)
+	const_char_p monome_get_friendly_name(monome_t *monome)
 	const_char_p monome_get_devpath(monome_t *monome)
+	const_char_p monome_get_proto(monome_t *monome)
 	int monome_get_rows(monome_t *monome)
 	int monome_get_cols(monome_t *monome)
 
@@ -360,6 +362,15 @@ cdef class Monome(object):
 	@property
 	def columns(self):
 		return monome_get_cols(self.monome)
+
+	@property
+	def name(self):
+		return monome_get_friendly_name(self.monome)
+
+	@property
+	def protocol(self):
+		return monome_get_proto(self.monome)
+
 
 	#
 	# event functions
